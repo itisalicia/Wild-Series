@@ -1,5 +1,8 @@
 import type { RequestHandler } from "express";
 
+//import access to data
+import categoryRepository from "./categoryRepository";
+
 const categories = [
   {
     id: 1,
@@ -11,8 +14,9 @@ const categories = [
   },
 ];
 
-const browse: RequestHandler = (req, res) => {
-  res.json(categories);
+const browse: RequestHandler = async (req, res) => {
+  const categoriesFromDB = await categoryRepository.readAll();
+  res.json(categoriesFromDB);
 };
 
 const read: RequestHandler = (req, res) => {
